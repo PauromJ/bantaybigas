@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Directory — BantayBigas</title>
+    <link rel="stylesheet" href="/Assets/css/app.css">
+    <style>
+        /* Custom styling for the Portal Container */
+        .portal-wrapper {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-top: 20px;
+        }
+        .portal-header {
+            margin-bottom: 20px;
+            border-left: 4px solid #2ecc71; /* Accent color for verified feel */
+            padding-left: 15px;
+        }
+        .sheet-container {
+            position: relative;
+            padding-bottom: 70%; /* Adjust this to change the height of the sheet */
+            height: 0;
+            overflow: hidden;
+            border: 1px solid #e1e1e1;
+            border-radius: 10px;
+        }
+        .sheet-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Bantay<span class="logo-accent">Bigas</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="directory.html" class="nav-link active">Directory</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="apply.html" class="nav-link">Apply</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Verified Rice Supplier Directory</h1>
+            <p class="page-subtitle">Real-time inventory and pricing from our manually verified partners.</p>
+        </div>
+    </section>
+
+    <main class="section">
+        <div class="container">
+            
+            <div class="portal-wrapper">
+                <div class="portal-header">
+                    <h2 style="margin: 0; color: #2c3e50;">Live Supplier Portal</h2>
+                    <p style="margin: 5px 0 0; color: #7f8c8d; font-size: 0.9rem;">
+                        Suppliers: Navigate to your specific tab at the bottom to update your data.
+                    </p>
+                </div>
+
+                <!-- THE GOOGLE SHEET PORTAL -->
+                <div class="sheet-container">
+                    <!-- REPLACE 'YOUR_SHEET_ID_HERE' with your actual Google Sheet ID -->
+                    <iframe 
+                        src="https://docs.google.com/spreadsheets/d/1guhKXH6vFb6-FpAkRrEsclLoF8bl31G3i_1WWyuYz60/edit?usp=sharing" 
+                        frameborder="0">
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <p class="footer-text">&copy; 2026 BantayBigas. A curated B2B rice supplier directory.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="directory.html">Directory</a>
+                <a href="about.html">About</a>
+                <a href="apply.html">Apply</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
