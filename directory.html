@@ -33,6 +33,17 @@
             font-size: 0.9rem;
             z-index: 10001;
         }
+        /* NEW: Full View Button Style */
+        .fullview-btn {
+            background: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
         .sheet-container {
             position: relative;
             padding-bottom: 70%; 
@@ -99,14 +110,18 @@
                             Update your pricing and inventory in the sheet below.
                         </p>
                     </div>
-                    <button id="toggleBtn" class="maximize-btn" onclick="toggleMaximize()">⛶ Maximize</button>
+                    <div style="display: flex; gap: 10px;">
+                        <!-- NEW: Full View Fail-safe for iPhone -->
+                        <a href="https://docs.google.com/spreadsheets/d/1Jj3lRGAVFjIKPNn0dhVd_MJ50M9Nh0lGpKh9HesKsV8/edit?usp=sharing" target="_blank" class="fullview-btn">Full View ↗</a>
+                        <button id="toggleBtn" class="maximize-btn" onclick="toggleMaximize()">⛶ Maximize</button>
+                    </div>
                 </div>
 
                 <div class="sheet-container">
                     <!-- OPTION 1: UPDATED TO /PREVIEW URL -->
                     <iframe 
                         id="excelFrame" 
-                        src="https://docs.google.com/spreadsheets/d/1Jj3lRGAVFjIKPNn0dhVd_MJ50M9Nh0lGpKh9HesKsV8/preview" 
+                        src="https://docs.google.com/spreadsheets/d/1Jj3lRGAVFjIKPNn0dhVd_MJ50M9Nh0lGpKh9HesKsV8/edit?usp=sharing" 
                         frameborder="0">
                     </iframe>
                 </div>
