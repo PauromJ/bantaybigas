@@ -18,6 +18,25 @@
             margin-bottom: 20px;
             border-left: 4px solid #2ecc71; /* Accent color for verified feel */
             padding-left: 15px;
+            /* Flex layout to keep button and text aligned */
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .maximize-btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .maximize-btn:hover {
+            background: #27ae60;
         }
         .sheet-container {
             position: relative;
@@ -61,18 +80,25 @@
             
             <div class="portal-wrapper">
                 <div class="portal-header">
-                    <h2 style="margin: 0; color: #2c3e50;">Live Supplier Portal</h2>
-                    <p style="margin: 5px 0 0; color: #7f8c8d; font-size: 0.9rem;">
-                        Suppliers: Navigate to your specific tab at the bottom to update your data.
-                    </p>
+                    <div>
+                        <h2 style="margin: 0; color: #2c3e50;">Live Supplier Portal</h2>
+                        <p style="margin: 5px 0 0; color: #7f8c8d; font-size: 0.9rem;">
+                            Suppliers: Navigate to your specific tab at the bottom to update your data.
+                        </p>
+                    </div>
+                    <!-- MAXIMIZE BUTTON -->
+                    <button class="maximize-btn" onclick="maximizeSheet()">
+                        ⛶ Maximize View
+                    </button>
                 </div>
 
                 <!-- THE GOOGLE SHEET PORTAL -->
                 <div class="sheet-container">
-                    <!-- REPLACE 'YOUR_SHEET_ID_HERE' with your actual Google Sheet ID -->
                     <iframe 
-                        src="https://docs.google.com/spreadsheets/d/1Jj3lRGAVFjIKPNn0dhVd_MJ50M9Nh0lGpKh9HesKsV8/edit?gid=1626464812#gid=1626464812&fvid=2068817147" 
-                        frameborder="0">
+                        id="excelFrame"
+                        src="https://google.com" 
+                        frameborder="0"
+                        allowfullscreen>
                     </iframe>
                 </div>
             </div>
@@ -91,5 +117,21 @@
             </div>
         </div>
     </footer>
+
+    <!-- JAVASCRIPT FOR FULLSCREEN TOGGLE -->
+    <script>
+        function maximizeSheet() {
+            var elem = document.getElementById("excelFrame");
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari / Chrome */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 / Edge */
+                elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            }
+        }
+    </script>
 </body>
 </html>
