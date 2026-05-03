@@ -31,11 +31,11 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 0.9rem;
-            z-index: 10001; /* Above everything */
+            z-index: 10001;
         }
         .sheet-container {
             position: relative;
-            padding-bottom: 70%; /* Responsive aspect ratio */
+            padding-bottom: 70%; 
             height: 0;
             overflow: hidden;
             border: 1px solid #e1e1e1;
@@ -48,7 +48,7 @@
             width: 100%; height: 100%;
         }
 
-        /* MAXIMIZE LOGIC (Works on all devices including iPhone) */
+        /* MAXIMIZE LOGIC (Universal Support) */
         body.is-maximized { overflow: hidden; }
         .is-maximized .sheet-container {
             position: fixed;
@@ -65,44 +65,29 @@
 
         /* FLOATING HELP BUTTON & GUIDE */
         .help-fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: #3498db;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: fixed; bottom: 30px; right: 30px;
+            width: 60px; height: 60px;
+            background: #3498db; color: white;
+            border-radius: 50%; display: flex;
+            justify-content: center; align-items: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            cursor: pointer;
-            font-size: 24px;
-            z-index: 10002;
-            border: none;
+            cursor: pointer; font-size: 24px;
+            z-index: 10002; border: none;
         }
         .help-panel {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 300px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            padding: 20px;
-            display: none; /* Hidden by default */
-            z-index: 10002;
-            border: 1px solid #eee;
+            position: fixed; bottom: 100px; right: 30px;
+            width: 300px; background: white;
+            border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 20px; display: none;
+            z-index: 10002; border: 1px solid #eee;
         }
         .help-panel.active { display: block; }
         .help-panel h3 { margin-top: 0; color: #2c3e50; font-size: 1.1rem; }
-        .help-step { margin-bottom: 15px; font-size: 0.85rem; color: #555; }
+        .help-step { margin-bottom: 12px; font-size: 0.85rem; color: #555; line-height: 1.4; }
         .help-step strong { color: #2ecc71; }
     </style>
 </head>
 <body>
-    <!-- Navigation (Keep your existing nav code) -->
     
     <main class="section">
         <div class="container">
@@ -118,7 +103,12 @@
                 </div>
 
                 <div class="sheet-container">
-                    <iframe id="excelFrame" src="https://docs.google.com/spreadsheets/d/1Jj3lRGAVFjIKPNn0dhVd_MJ50M9Nh0lGpKh9HesKsV8/edit?gid=1626464812#gid=1626464812&fvid=2068817147" frameborder="0"></iframe>
+                    <!-- OPTION 1: UPDATED TO /PREVIEW URL -->
+                    <iframe 
+                        id="excelFrame" 
+                        src="https://docs.google.com/spreadsheets/d/1Jj3lRGAVFjIKPNn0dhVd_MJ50M9Nh0lGpKh9HesKsV8/edit?usp=sharing" 
+                        frameborder="0">
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -129,22 +119,21 @@
     <div id="helpPanel" class="help-panel">
         <h3>Supplier Quick Guide</h3>
         <div class="help-step">
-            <strong>1. Find Your Tab:</strong> Look for your business name at the bottom of the sheet.
+            <strong>1. Use Filters:</strong> Tap the black filter bars at the top to sort by type, location, or price.
         </div>
         <div class="help-step">
-            <strong>2. Update Inventory:</strong> Edit only the "Stock Level" and "Price" columns.
+            <strong>2. iPhone Tip:</strong> If filters don't click, tap the <strong>'AA'</strong> icon in Safari and select <strong>'Request Desktop Website'</strong>.
         </div>
         <div class="help-step">
-            <strong>3. Mobile View:</strong> Click the green <strong>Maximize</strong> button for a better editing experience.
+            <strong>3. Mobile View:</strong> Tap <strong>Maximize</strong> for easier viewing.
         </div>
         <div class="help-step">
-            <strong>4. Support:</strong> Email support@bantaybigas.com if you cannot access your tab.
+            <strong>4. Help:</strong> Email support@bantaybigas.com for assistance.
         </div>
-        <button onclick="toggleHelp()" style="width: 100%; padding: 8px; border: none; background: #f4f4f4; border-radius: 5px; cursor: pointer;">Close Guide</button>
+        <button onclick="toggleHelp()" style="width: 100%; padding: 10px; border: none; background: #f4f4f4; border-radius: 5px; cursor: pointer; font-weight: bold;">Close Guide</button>
     </div>
 
     <script>
-        // Toggle Maximize Function
         function toggleMaximize() {
             const body = document.body;
             const btn = document.getElementById('toggleBtn');
@@ -152,7 +141,6 @@
             btn.innerHTML = body.classList.contains('is-maximized') ? "✕ Close Fullview" : "⛶ Maximize";
         }
 
-        // Toggle Help Function
         function toggleHelp() {
             const panel = document.getElementById('helpPanel');
             panel.classList.toggle('active');
