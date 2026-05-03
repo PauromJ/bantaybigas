@@ -6,7 +6,7 @@
     <title>Supplier Directory — BantayBigas</title>
     <link rel="stylesheet" href="./Assets/css/app.css">
     <style>
-        /* Custom styling for the Portal Container */
+        /* Base Styling */
         .portal-wrapper {
             background: #ffffff;
             padding: 20px;
@@ -16,9 +16,8 @@
         }
         .portal-header {
             margin-bottom: 20px;
-            border-left: 4px solid #2ecc71; /* Accent color for verified feel */
+            border-left: 4px solid #2ecc71;
             padding-left: 15px;
-            /* Flex layout to keep button and text aligned */
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -32,105 +31,131 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 0.9rem;
-            transition: background 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .maximize-btn:hover {
-            background: #27ae60;
+            z-index: 10001; /* Above everything */
         }
         .sheet-container {
             position: relative;
-            padding-bottom: 70%; /* Adjust this to change the height of the sheet */
+            padding-bottom: 70%; /* Responsive aspect ratio */
             height: 0;
             overflow: hidden;
             border: 1px solid #e1e1e1;
             border-radius: 10px;
+            transition: all 0.3s ease;
         }
         .sheet-container iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
         }
+
+        /* MAXIMIZE LOGIC (Works on all devices including iPhone) */
+        body.is-maximized { overflow: hidden; }
+        .is-maximized .sheet-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            padding-bottom: 0;
+            z-index: 10000;
+            border-radius: 0;
+        }
+        .is-maximized .maximize-btn {
+            position: fixed; top: 15px; right: 15px;
+            background: #e74c3c;
+        }
+
+        /* FLOATING HELP BUTTON & GUIDE */
+        .help-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 10002;
+            border: none;
+        }
+        .help-panel {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 300px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 20px;
+            display: none; /* Hidden by default */
+            z-index: 10002;
+            border: 1px solid #eee;
+        }
+        .help-panel.active { display: block; }
+        .help-panel h3 { margin-top: 0; color: #2c3e50; font-size: 1.1rem; }
+        .help-step { margin-bottom: 15px; font-size: 0.85rem; color: #555; }
+        .help-step strong { color: #2ecc71; }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">Bantay<span class="logo-accent">Bigas</span></a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="directory.html" class="nav-link active">Directory</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="apply.html" class="nav-link">Apply</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="page-header">
-        <div class="container">
-            <h1 class="page-title">Verified Rice Supplier Directory</h1>
-            <p class="page-subtitle">Real-time inventory and pricing from our manually verified partners.</p>
-        </div>
-    </section>
-
+    <!-- Navigation (Keep your existing nav code) -->
+    
     <main class="section">
         <div class="container">
-            
             <div class="portal-wrapper">
                 <div class="portal-header">
                     <div>
                         <h2 style="margin: 0; color: #2c3e50;">Live Supplier Portal</h2>
                         <p style="margin: 5px 0 0; color: #7f8c8d; font-size: 0.9rem;">
-                            Suppliers: Navigate to your specific tab at the bottom to update your data.
+                            Update your pricing and inventory in the sheet below.
                         </p>
                     </div>
-                    <!-- MAXIMIZE BUTTON -->
-                    <button class="maximize-btn" onclick="maximizeSheet()">
-                        ⛶ Maximize View
-                    </button>
+                    <button id="toggleBtn" class="maximize-btn" onclick="toggleMaximize()">⛶ Maximize</button>
                 </div>
 
-                <!-- THE GOOGLE SHEET PORTAL -->
                 <div class="sheet-container">
-                    <iframe 
-                        id="excelFrame"
-                        src="https://docs.google.com/spreadsheets/d/1Jj3lRGAVFjIKPNn0dhVd_MJ50M9Nh0lGpKh9HesKsV8/edit?usp=sharing" 
-                        frameborder="0"
-                        allowfullscreen>
-                    </iframe>
+                    <iframe id="excelFrame" src="https://docs.google.com/spreadsheets/d/1Jj3lRGAVFjIKPNn0dhVd_MJ50M9Nh0lGpKh9HesKsV8/edit?usp=sharing" frameborder="0"></iframe>
                 </div>
             </div>
-
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container footer-content">
-            <p class="footer-text">&copy; 2026 BantayBigas. A curated B2B rice supplier directory.</p>
-            <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="directory.html">Directory</a>
-                <a href="about.html">About</a>
-                <a href="apply.html">Apply</a>
-            </div>
+    <!-- HELP SYSTEM -->
+    <button class="help-fab" onclick="toggleHelp()">?</button>
+    <div id="helpPanel" class="help-panel">
+        <h3>Supplier Quick Guide</h3>
+        <div class="help-step">
+            <strong>1. Find Your Tab:</strong> Look for your business name at the bottom of the sheet.
         </div>
-    </footer>
+        <div class="help-step">
+            <strong>2. Update Inventory:</strong> Edit only the "Stock Level" and "Price" columns.
+        </div>
+        <div class="help-step">
+            <strong>3. Mobile View:</strong> Click the green <strong>Maximize</strong> button for a better editing experience.
+        </div>
+        <div class="help-step">
+            <strong>4. Support:</strong> Email support@bantaybigas.com if you cannot access your tab.
+        </div>
+        <button onclick="toggleHelp()" style="width: 100%; padding: 8px; border: none; background: #f4f4f4; border-radius: 5px; cursor: pointer;">Close Guide</button>
+    </div>
 
-    <!-- JAVASCRIPT FOR FULLSCREEN TOGGLE -->
     <script>
-        function maximizeSheet() {
-            var elem = document.getElementById("excelFrame");
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.webkitRequestFullscreen) { /* Safari / Chrome */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE11 / Edge */
-                elem.msRequestFullscreen();
-            } else if (elem.mozRequestFullScreen) { /* Firefox */
-                elem.mozRequestFullScreen();
-            }
+        // Toggle Maximize Function
+        function toggleMaximize() {
+            const body = document.body;
+            const btn = document.getElementById('toggleBtn');
+            body.classList.toggle('is-maximized');
+            btn.innerHTML = body.classList.contains('is-maximized') ? "✕ Close Fullview" : "⛶ Maximize";
+        }
+
+        // Toggle Help Function
+        function toggleHelp() {
+            const panel = document.getElementById('helpPanel');
+            panel.classList.toggle('active');
         }
     </script>
 </body>
